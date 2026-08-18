@@ -83,13 +83,11 @@ def test_apply_overrides_multistage_and_low_rs():
     ns.multistage_upsample = True
     ns.low_rs_step = 3
     ns.gradient_checkpointing = True
-    ns.enable_sp = False  # explicit False must be applied
     ns.mixed_precision = "bf16"
     _apply_overrides(cfg, ns)
     assert cfg.multistage_upsample is True
     assert cfg.low_rs_step == 3
     assert cfg.gradient_checkpointing is True
-    assert cfg.enable_sp is False
     assert cfg.mixed_precision == "bf16"
     assert cfg.flow_shift_trans == 1
     assert cfg.resolution == "720"

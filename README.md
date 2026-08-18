@@ -18,7 +18,7 @@ Official implementation of **Cross-Resolution Distribution Matching for Diffusio
 - Few-step 480p-to-720p cascaded video generation.
 - Distribution matching along cross-resolution trajectories.
 - Predicted-noise re-injection for stable resolution transitions.
-- CUDA/NPU support, FSDP training, distributed inference, and VBench-format generation.
+- CUDA support, FSDP training, distributed inference, and VBench-format generation.
 
 ## Results
 
@@ -55,7 +55,6 @@ Optional dependencies:
 ```bash
 pip install -e ".[gradio]"   # web demo
 pip install -e ".[dev]"      # tests and lint
-pip install -e ".[npu]"      # Ascend NPU
 ```
 
 Verify the installation:
@@ -214,7 +213,6 @@ Before a full run, append `--max_train_steps 2 --checkpointing_steps 1` to a tra
 - [Method](docs/method.md)
 - [Training](docs/training.md)
 - [Inference](docs/inference.md)
-- [Ascend NPU](docs/npu.md)
 - [Contributing](CONTRIBUTING.md)
 - [Code of Conduct](CODE_OF_CONDUCT.md)
 

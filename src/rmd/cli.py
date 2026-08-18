@@ -23,7 +23,7 @@ def _add_common_parser(prog: str, description: str) -> argparse.ArgumentParser:
         "--device",
         type=str,
         default=None,
-        choices=["auto", "cuda", "npu", "cpu"],
+        choices=["auto", "cuda", "cpu"],
         help="Override the device from the config.",
     )
     return p
@@ -41,7 +41,6 @@ _TRAIN_OVERRIDE_KEYS = (
     "seed",
     "multistage_upsample",
     "low_rs_step",
-    "enable_sp",
     "gradient_checkpointing",
     "mixed_precision",
     "resume_from_checkpoint",
@@ -90,7 +89,6 @@ def train_main(argv: Sequence[str] | None = None) -> None:
     p.add_argument("--validation_prompt_path", type=str, default=None)
     p.add_argument("--seed", type=int, default=None)
     p.add_argument("--multistage_upsample", action=argparse.BooleanOptionalAction, default=None)
-    p.add_argument("--enable_sp", action=argparse.BooleanOptionalAction, default=None)
     p.add_argument("--gradient_checkpointing", action=argparse.BooleanOptionalAction, default=None)
     p.add_argument("--low_rs_step", type=int, default=None)
     p.add_argument("--mixed_precision", choices=["no", "fp16", "bf16"], default=None)
@@ -127,7 +125,6 @@ def infer_main(argv: Sequence[str] | None = None) -> None:
     p.add_argument("--eta", type=float, default=None)
     p.add_argument("--seed", type=int, default=None)
     p.add_argument("--output_dir", type=str, default=None)
-    p.add_argument("--enable_sp", action=argparse.BooleanOptionalAction, default=None)
     args = p.parse_args(argv)
 
     from rmd.config import load_infer_config

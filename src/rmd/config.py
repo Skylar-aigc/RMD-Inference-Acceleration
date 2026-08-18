@@ -28,7 +28,7 @@ class TrainConfig(BaseModel):
     variant: str | None = None
 
     # --- training ---
-    device: str = "auto"  # auto | cuda | npu | cpu
+    device: Literal["auto", "cuda", "cpu"] = "auto"
     train_batch_size: int = 1
     max_train_steps: int = 1000
     num_train_epochs: int = 1
@@ -73,7 +73,6 @@ class TrainConfig(BaseModel):
     # --- feature flags ---
     multistage_upsample: bool = False
     gan: bool = False
-    enable_sp: bool = False
 
     # --- GAN mode (experimental) ---
     K_step_get_fact_latents: int = 20
@@ -147,7 +146,7 @@ class InferConfig(BaseModel):
     revision: str | None = None
     variant: str | None = None
     model_dir: str  # path to trained student weights
-    device: str = "auto"
+    device: Literal["auto", "cuda", "cpu"] = "auto"
     train_batch_size: int = 1  # used by Predictor for the unconditional prompt batch
     resolution: Literal["480", "720"] = "480"
     flow_shift: float = 3.0
@@ -161,7 +160,6 @@ class InferConfig(BaseModel):
     mixed_precision: Literal["no", "fp16", "bf16"] = "bf16"
     seed: int = 42
     prompt_enhanced: bool = False
-    enable_sp: bool = False
     output_dir: str = "outputs/rmd-infer"
 
     @field_validator("resolution", mode="before")
@@ -223,7 +221,6 @@ def load_infer_config(model_dir: str, args=None) -> InferConfig:
             "seed",
             "output_dir",
             "device",
-            "enable_sp",
         ):
             value = getattr(args, key, None)
             if value is not None:

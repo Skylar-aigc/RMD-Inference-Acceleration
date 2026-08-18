@@ -15,7 +15,6 @@ def test_readme_referenced_local_files_exist():
         "examples/VIDPROM_DATASET.md",
         "docs/training.md",
         "docs/inference.md",
-        "docs/npu.md",
         "CONTRIBUTING.md",
         "LICENSE",
         "assets/rmd_training_framework.png",
