@@ -148,7 +148,7 @@ rmd-infer \
   --k_step 6 \
   --flow_shift_trans 1 \
   --low_rs_step 3 \
-  --eta 0.9 \
+  --eta 0.5 \
   --output_dir outputs/demo
 ```
 
@@ -159,7 +159,7 @@ rmd-infer \
   --model_dir /data/runs/rmd-1.3b/student_model-300 \
   --pretrained_model_name_or_path /data/models/Wan2.1-T2V-1.3B-Diffusers \
   --prompt_file examples/sample_prompts.txt \
-  --resolution 720 --k_step 6 --flow_shift_trans 1 --low_rs_step 3 --eta 0.9 \
+  --resolution 720 --k_step 6 --flow_shift_trans 1 --low_rs_step 3 --eta 0.5 \
   --output_dir outputs/batch
 ```
 
@@ -170,7 +170,7 @@ accelerate launch --num_processes 8 -m rmd.cli infer \
   --model_dir /data/runs/rmd-1.3b/student_model-300 \
   --pretrained_model_name_or_path /data/models/Wan2.1-T2V-1.3B-Diffusers \
   --prompt_file examples/sample_prompts.txt \
-  --resolution 720 --k_step 6 --flow_shift_trans 1 --low_rs_step 3 --eta 0.9 \
+  --resolution 720 --k_step 6 --flow_shift_trans 1 --low_rs_step 3 --eta 0.5 \
   --output_dir outputs/distributed
 ```
 
@@ -180,7 +180,7 @@ Launch the web demo with:
 rmd-demo \
   --model_dir /data/runs/rmd-1.3b/student_model-300 \
   --pretrained_model_name_or_path /data/models/Wan2.1-T2V-1.3B-Diffusers \
-  --resolution 720 --k_step 6 --flow_shift_trans 1 --low_rs_step 3 --eta 0.9
+  --resolution 720 --k_step 6 --flow_shift_trans 1 --low_rs_step 3 --eta 0.5
 ```
 
 ## Evaluation
@@ -193,7 +193,7 @@ python benchmarks/vbench.py \
   --pretrained_model_name_or_path /data/models/Wan2.1-T2V-1.3B-Diffusers \
   --prompt_file /data/VBench/prompts.txt \
   --output_dir outputs/vbench \
-  --resolution 720 --k_step 6 --flow_shift_trans 1 --low_rs_step 3 --eta 0.9 \
+  --resolution 720 --k_step 6 --flow_shift_trans 1 --low_rs_step 3 --eta 0.5 \
   --iterations 5
 ```
 

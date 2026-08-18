@@ -74,7 +74,7 @@ accelerate launch --num_processes 8 -m rmd.cli infer \
   --model_dir /path/to/student_ckpt \
   --pretrained_model_name_or_path /path/to/Wan-Diffusers \
   --prompt_file prompts.txt \
-  --eta 0.9 \
+  --eta 0.5 \
   --output_dir outputs/distributed-infer
 ```
 

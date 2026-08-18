@@ -153,3 +153,32 @@ def test_generate_new_upsample_keeps_reinjected_noise_in_model_dtype():
     )
 
     assert transformer.calls == 2
+
+
+def test_generate_new_upsample_reinjects_pure_gaussian_at_resolution_shift(monkeypatch):
+    solver = EulerSolver(np.linspace(0.0, 1.0, 1001), timesteps=1000, euler_timesteps=1000).to("cpu")
+    predictor = Predictor.__new__(Predictor)
+    predictor.solver = solver
+    predictor.solver_hrs = solver
+    predictor.weight_dtype = torch.float32
+    transformer = _DtypeCheckingTransformer(torch.float32)
+    noise = torch.zeros(1, 2, 2, 2, 2)
+    monkeypatch.setattr(torch, "randn_like", lambda tensor: torch.ones_like(tensor))
+
+    _, noisy_imgs = predictor.generate_new_upsample(
+        transformer,
+        noise_scheduler=None,
+        latent=noise,
+        noise=noise,
+        encoder_hidden_states=torch.zeros(1, 2, 2),
+        image_rotary_emb=None,
+        steps=2,
+        eta=0.5,
+        return_mid=True,
+        flow_shift_trans=1,
+        relusion_shift=0,
+        target_size=(2, 2),
+    )
+
+    expected = torch.full_like(noisy_imgs[1], solver.sigmas[499].item())
+    assert torch.allclose(noisy_imgs[1], expected)
