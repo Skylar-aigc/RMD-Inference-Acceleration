@@ -1,0 +1,25 @@
+# Training recipe for the Wan2.1 1.3B backbone (single/multi-GPU friendly).
+pretrained_model_name_or_path: Wan-AI/Wan2.1-T2V-1.3B-Diffusers
+device: auto
+train_batch_size: 1
+max_train_steps: 300
+checkpointing_steps: 50
+learning_rate: 5e-6
+learning_rate_fake: 2e-5
+k_step: 6
+cfg: 5.0
+eta: 0.9
+score_weighting_mode: inverse_sigma
+flow_shift: 3.0
+multistage_upsample: true
+# 1 = 480p -> 720p upsampling; use 2 to also switch flow shift 3 -> 5.
+flow_shift_trans: 1
+low_rs_step: 3
+t_offset_factor: 0.5
+split_timestep: true
+warmup_step: 15
+gradient_checkpointing: true
+mixed_precision: bf16
+output_dir: outputs/rmd-1.3b
+data_path: examples/vidprom_prompts_2000.txt
+prompt_embed_batch_size: 8

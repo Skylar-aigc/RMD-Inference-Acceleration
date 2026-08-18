@@ -1,0 +1,72 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rmd"
+version = "0.1.0"
+description = "Cross-resolution distribution matching for few-step diffusion generation"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+authors = [
+    { name = "Feiyang Chen" },
+    { name = "Hongpeng Pan" },
+    { name = "Haonan Xu" },
+    { name = "Xinyu Duan" },
+    { name = "Zhefeng Wang" },
+    { name = "Yang Yang" },
+]
+keywords = ["diffusion", "distillation", "text-to-video", "Wan", "FSDP"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "torch>=2.1",
+    "diffusers>=0.31",
+    "accelerate>=1.1",
+    "transformers>=4.49",
+    "safetensors",
+    "pydantic>=2",
+    "PyYAML>=6",
+    "tqdm",
+    "easydict",
+    "imageio",
+    "imageio-ffmpeg",
+    "opencv-python",
+    "numpy>=1.23.5,<2",
+    "ftfy",
+    "regex",
+    "tensorboard",
+]
+[project.optional-dependencies]
+npu = ["torch-npu"]
+gradio = ["gradio>=5.0"]
+gpu = ["bitsandbytes>=0.43"]
+dev = ["pytest", "ruff", "pre-commit"]
+
+[project.scripts]
+rmd-train = "rmd.cli:train_main"
+rmd-infer = "rmd.cli:infer_main"
+rmd-demo = "rmd.cli:demo_main"
+rmd-build-latents = "rmd.cli:build_latents_main"
+
+[project.urls]
+Paper = "https://arxiv.org/abs/2603.06136"
+Repository = "https://github.com/Skylar-aigc/RMD-Inference-Acceleration"
+Issues = "https://github.com/Skylar-aigc/RMD-Inference-Acceleration/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 120
+
+[tool.pytest.ini_options]
+markers = ["torch: requires torch/diffusers (skipped on bare CI)"]
+testpaths = ["tests"]
+pythonpath = ["src"]

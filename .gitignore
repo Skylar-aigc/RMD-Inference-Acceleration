@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+.venv/
+venv/
+
+# Model / data artifacts
+*.pt
+*.safetensors
+*.bin
+*.mp4
+*.gif
+*.ckpt
+
+# Tooling
+.ipynb_checkpoints/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Outputs / logs
+tensorboard/
+Tensorboard_logs/
+outputs/
+results/
+logs/
+*.log
+
+# Local review and packaging files
+work/
+SERVER_*.md
+TODO*.md
+*review*.md
+*handoff*.md
+
+# Environment
+.env
+.env.local
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

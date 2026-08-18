@@ -1,0 +1,45 @@
+cff-version: 1.2.0
+message: "If you use RMD in your research, please cite this work."
+title: "RMD: Cross-Resolution Distribution Matching for Diffusion Distillation"
+type: software
+version: 0.1.0
+date-released: 2026-08-13
+license: Apache-2.0
+url: "https://arxiv.org/abs/2603.06136"
+repository-code: "https://github.com/Skylar-aigc/RMD-Inference-Acceleration"
+identifiers:
+  - type: doi
+    value: "10.48550/arXiv.2603.06136"
+    description: "arXiv DOI"
+authors:
+  - family-names: Chen
+    given-names: Feiyang
+  - family-names: Pan
+    given-names: Hongpeng
+  - family-names: Xu
+    given-names: Haonan
+  - family-names: Duan
+    given-names: Xinyu
+  - family-names: Wang
+    given-names: Zhefeng
+  - family-names: Yang
+    given-names: Yang
+preferred-citation:
+  type: article
+  title: "Cross-Resolution Distribution Matching for Diffusion Distillation"
+  journal: "arXiv preprint arXiv:2603.06136"
+  year: 2026
+  doi: "10.48550/arXiv.2603.06136"
+  authors:
+    - family-names: Chen
+      given-names: Feiyang
+    - family-names: Pan
+      given-names: Hongpeng
+    - family-names: Xu
+      given-names: Haonan
+    - family-names: Duan
+      given-names: Xinyu
+    - family-names: Wang
+      given-names: Zhefeng
+    - family-names: Yang
+      given-names: Yang
