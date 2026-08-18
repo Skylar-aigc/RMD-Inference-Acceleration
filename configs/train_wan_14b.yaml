@@ -1,25 +1,24 @@
 # Training recipe for the Wan2.1 14B backbone (multi-GPU, ~40 NPU reference).
 pretrained_model_name_or_path: Wan-AI/Wan2.1-T2V-14B-Diffusers
 device: auto
-# Per-GPU micro-batch. With 8 processes and accumulation=3 the effective
-# global batch size is 1 * 8 * 3 = 24, matching the former 3-per-GPU recipe
-# while substantially reducing activation memory on each card.
-train_batch_size: 1
-gradient_accumulation_steps: 3
+# Per-GPU micro-batch. With 8 processes and accumulation=2, the effective
+# global batch size is 4 * 8 * 2 = 64.
+train_batch_size: 4
+gradient_accumulation_steps: 2
 max_train_steps: 300
 checkpointing_steps: 50
 learning_rate: 5e-6
 learning_rate_fake: 2e-5
 k_step: 6
 cfg: 5.0
-eta: 0.9
+eta: 0.5
 score_weighting_mode: inverse_sigma
 flow_shift: 3.0
 multistage_upsample: true
 # 1 = 480p -> 720p upsampling; use 2 to also switch flow shift 3 -> 5.
 flow_shift_trans: 1
 low_rs_step: 3
-t_offset_factor: 0.5
+t_offset_factor: 0.25
 split_timestep: true
 warmup_step: 15
 gradient_checkpointing: true

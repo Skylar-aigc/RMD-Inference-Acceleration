@@ -86,6 +86,9 @@ At a fixed point in the trajectory (`relusion_shift`), the low-resolution latent
 - `flow_shift_trans = 2`: upsampling **plus** a flow-shift transition from
   `shift=3` (480p) to `shift=5` (720p), implemented with a second sigma solver
   (`solver_hrs`).
+- At the resolution-switch step, RMD re-injects fresh Gaussian noise. At all
+  other steps, it mixes predicted noise and fresh Gaussian noise according to
+  `eta`.
 
 Because both resolutions share one model, the student learns to refine details
 during the high-resolution segment — no extra upsampling network is needed.

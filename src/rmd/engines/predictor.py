@@ -290,7 +290,10 @@ class Predictor:
                 T_ = mid_points[ind + 1] + zero_t
             else:
                 T_ = T_ - total_steps // steps
-            add_eps = eta * pred_epsilon + ((1 - eta**2) ** 0.5) * torch.randn_like(pred_epsilon)
+            if ind == relusion_shift:
+                add_eps = torch.randn_like(pred_epsilon)
+            else:
+                add_eps = eta * pred_epsilon + ((1 - eta**2) ** 0.5) * torch.randn_like(pred_epsilon)
             T_[T_ < 0] = T_[T_ < 0].clone() * 0
             if ind >= relusion_shift and flow_shift_trans == 2:
                 sigmas_new = extract_into_tensor(self.solver_hrs.sigmas, T_, noise.shape)

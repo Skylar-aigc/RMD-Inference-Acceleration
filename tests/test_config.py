@@ -87,9 +87,10 @@ def test_eight_gpu_recipes_have_expected_training_budget():
 
     assert small.max_train_steps == large.max_train_steps == 300
     assert small.checkpointing_steps == large.checkpointing_steps == 50
-    assert small.train_batch_size == large.train_batch_size == 1
-    assert small.gradient_accumulation_steps == 1
-    assert large.gradient_accumulation_steps == 3
+    assert small.train_batch_size == large.train_batch_size == 4
+    assert small.gradient_accumulation_steps == large.gradient_accumulation_steps == 2
+    assert small.eta == large.eta == 0.5
+    assert small.t_offset_factor == large.t_offset_factor == 0.25
     assert small.data_path == large.data_path == "examples/vidprom_prompts_2000.txt"
 
 
