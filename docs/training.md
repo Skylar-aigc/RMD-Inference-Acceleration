@@ -2,10 +2,10 @@
 
 ## Requirements
 
-- Python ≥ 3.10, PyTorch ≥ 2.1, CUDA (or Ascend NPU with `torch-npu`)
+- Python ≥ 3.10, PyTorch ≥ 2.1, and CUDA
 - A Wan2.1 checkpoint reachable via `--pretrained_model_name_or_path`
-  (HuggingFace repo id or local path). The `1.3B` recipe runs on a few GPUs; the
-  `14B` recipe targets multi-GPU (reference: 40 × Ascend NPU).
+  (HuggingFace repo id or local path). The `1.3B` recipe runs on a few GPUs and
+  the `14B` recipe targets multi-GPU training.
 - A prompt file (`.pt`, `.txt`, or `.jsonl`). A starter file ships at
   `examples/vidprom_prompts_2000.txt`. It is a filtered, text-only subset of
   VidProM under CC BY-NC 4.0; see `examples/VIDPROM_DATASET.md`. Prompts-only
@@ -73,8 +73,7 @@ bash scripts/train_8gpu.sh configs/train_wan_14b.yaml \
 Accelerate shards the `DataLoader`, so each process receives a different batch.
 Each worker also uses a deterministic rank-specific random seed. The text
 encoder only precomputes embeddings needed by that worker's prompt shard before
-it is released. On Ascend hardware, sequence parallel can additionally be
-enabled with `--enable_sp`; see [npu.md](npu.md).
+it is released.
 
 ## Key flags
 

@@ -33,7 +33,7 @@ rmd-infer \
 | `--low_rs_step` | `0` | low-resolution steps (match training value) |
 | `--eta` | `0` | stochasticity; may be tuned independently from training |
 | `--seed` | `42` | reproducibility |
-| `--device` | `auto` | `cuda` / `npu` / `cpu` |
+| `--device` | `auto` | `cuda` / `cpu` |
 
 ## Gradio demo
 

@@ -44,7 +44,6 @@ dependencies = [
     "tensorboard",
 ]
 [project.optional-dependencies]
-npu = ["torch-npu"]
 gradio = ["gradio>=5.0"]
 gpu = ["bitsandbytes>=0.43"]
 dev = ["pytest", "ruff", "pre-commit"]

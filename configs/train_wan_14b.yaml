@@ -1,4 +1,4 @@
-# Training recipe for the Wan2.1 14B backbone (multi-GPU, ~40 NPU reference).
+# Training recipe for the Wan2.1 14B backbone (multi-GPU).
 pretrained_model_name_or_path: Wan-AI/Wan2.1-T2V-14B-Diffusers
 device: auto
 # Per-GPU micro-batch. With 8 processes and accumulation=2, the effective

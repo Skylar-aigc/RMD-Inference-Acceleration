@@ -21,7 +21,7 @@ from rmd.engines.predictor import EulerSolver, Predictor
 from rmd.models.prompt import compute_prompt_embeddings
 from rmd.models.wan import load_student_for_infer, load_tokenizer_text_encoder, load_vae
 from rmd.parallel.sharding import round_robin_indices
-from rmd.platform import patch_torch_for_device, set_device
+from rmd.platform import set_device
 
 logger = logging.getLogger(__name__)
 
@@ -60,12 +60,11 @@ def infer(
     """
     device = device or cfg.effective_device
     set_device(device)
-    patch_torch_for_device(device)
     torch.manual_seed(seed)
 
     weight_dtype = _weight_dtype(cfg)
     tokenizer, text_encoder = load_tokenizer_text_encoder(cfg, device)
-    transformer = load_student_for_infer(cfg, device, enable_sp=cfg.enable_sp)
+    transformer = load_student_for_infer(cfg, device)
     vae = load_vae(cfg, device)
 
     latent_init, latent_target = cfg.source_target_latent_sizes

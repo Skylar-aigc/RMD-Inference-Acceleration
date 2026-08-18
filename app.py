@@ -59,7 +59,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(prog="rmd-demo", description="Launch the RMD Gradio demo.")
     parser.add_argument("--model_dir", type=str, required=True, help="Path to trained student weights.")
     parser.add_argument("--pretrained_model_name_or_path", type=str, default=None)
-    parser.add_argument("--device", type=str, default="auto", choices=["auto", "cuda", "npu", "cpu"])
+    parser.add_argument("--device", type=str, default="auto", choices=["auto", "cuda", "cpu"])
     parser.add_argument("--port", type=int, default=7860)
     parser.add_argument("--share", action="store_true", help="Create a public shareable link.")
     args = parser.parse_args()

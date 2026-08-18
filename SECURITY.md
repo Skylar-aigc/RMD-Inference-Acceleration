@@ -12,7 +12,7 @@ minimal reproducer.
 - Load checkpoints and datasets only from sources you trust.
 - Prefer `safetensors` for model weights.
 - Never commit access tokens, private prompts, or generated user data.
-- Install PyTorch, `torch-npu`, and accelerator libraries from their official
-  distribution channels.
+- Install PyTorch and accelerator libraries from their official distribution
+  channels.
 
 Only the latest release is supported with security updates.

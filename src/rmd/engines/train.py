@@ -42,12 +42,8 @@ from rmd.losses.distillation import (
     compute_weighting_factor,
 )
 from rmd.models.prompt import gather_prompt_embeddings, precompute_prompt_embeddings
-from rmd.models.wan import (
-    load_tokenizer_text_encoder,
-    load_training_transformer,
-    resolve_sequence_parallel,
-)
-from rmd.platform import empty_cache, patch_torch_for_device, set_device
+from rmd.models.wan import load_tokenizer_text_encoder, load_training_transformer
+from rmd.platform import empty_cache, set_device
 
 logger = get_logger(__name__)
 
@@ -275,7 +271,6 @@ def train(cfg: TrainConfig) -> None:
     # device before this point would make every worker briefly initialize GPU 0.
     device = str(accelerator.device)
     set_device(device)
-    patch_torch_for_device(device)
     if cfg.seed is not None:
         # Give every worker an independent, deterministic random stream.
         set_seed(cfg.seed, device_specific=True)
@@ -339,31 +334,22 @@ def train(cfg: TrainConfig) -> None:
     empty_cache(device)
 
     use_fsdp = accelerator.distributed_type == DistributedType.FSDP
-    enable_sp = resolve_sequence_parallel(cfg, cfg.enable_sp)
     model_load_device = None if use_fsdp else accelerator.device
 
     # In FSDP mode each full model is loaded on CPU and immediately handed to
     # Accelerate for sharding. This avoids ever materializing all three full
     # transformers on one accelerator.
-    transformer = load_training_transformer(cfg, device=model_load_device, enable_sp=enable_sp)
+    transformer = load_training_transformer(cfg, device=model_load_device)
     if cfg.gradient_checkpointing:
         transformer.enable_gradient_checkpointing()
-    if cfg.enable_sp:
-        from rmd.parallel.sp import set_parallel
-
-        set_parallel(transformer)
     transformer = accelerator.prepare(transformer)
 
-    transformer_fake = load_training_transformer(cfg, device=model_load_device, enable_sp=enable_sp)
+    transformer_fake = load_training_transformer(cfg, device=model_load_device)
     if cfg.gradient_checkpointing:
         transformer_fake.enable_gradient_checkpointing()
-    if cfg.enable_sp:
-        set_parallel(transformer_fake)
     transformer_fake = accelerator.prepare(transformer_fake)
 
-    transformer_real = load_training_transformer(cfg, device=model_load_device, enable_sp=enable_sp, frozen=True)
-    if cfg.enable_sp:
-        set_parallel(transformer_real)
+    transformer_real = load_training_transformer(cfg, device=model_load_device, frozen=True)
     transformer_real = accelerator.prepare(transformer_real)
 
     vae = None

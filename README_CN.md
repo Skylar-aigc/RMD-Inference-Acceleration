@@ -18,7 +18,7 @@
 - 少步 480p→720p 级联视频生成。
 - 沿跨分辨率轨迹进行分布匹配蒸馏。
 - 使用预测噪声重注入稳定分辨率切换。
-- 支持 CUDA/NPU、FSDP 多卡训练、分布式推理和 VBench 格式生成。
+- 支持 CUDA、FSDP 多卡训练、分布式推理和 VBench 格式生成。
 
 ## 论文结果
 
@@ -55,7 +55,6 @@ pip install -e .
 ```bash
 pip install -e ".[gradio]"   # Web 演示
 pip install -e ".[dev]"      # 测试和代码检查
-pip install -e ".[npu]"      # 昇腾 NPU
 ```
 
 检查环境：
@@ -214,7 +213,6 @@ pytest -q
 - [方法说明](docs/method.md)
 - [训练说明](docs/training.md)
 - [推理说明](docs/inference.md)
-- [昇腾 NPU](docs/npu.md)
 - [参与贡献](CONTRIBUTING.md)
 - [社区行为准则](CODE_OF_CONDUCT.md)
 
