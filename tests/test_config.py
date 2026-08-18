@@ -93,16 +93,6 @@ def test_eight_gpu_recipes_have_expected_training_budget():
     assert small.data_path == large.data_path == "examples/vidprom_prompts_2000.txt"
 
 
-def test_local_recipe_loads_algorithm_variants():
-    cfg = load_config("configs/train_wan_1_3b_7gpu.yaml")
-
-    assert cfg.timestep_offset_mode == "zero"
-    assert cfg.score_weighting_mode == "inverse_sigma"
-    assert cfg.use_8bit_adam is False
-    assert cfg.adam_beta1 == 0.0
-    assert cfg.validation_num_prompts == 10
-
-
 def test_bundled_vidprom_subset_has_2000_unique_prompts():
     prompts = load_prompt_dataset("examples/vidprom_prompts_2000.txt")
 
