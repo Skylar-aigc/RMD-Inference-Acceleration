@@ -10,8 +10,6 @@ def test_readme_referenced_local_files_exist():
         "README_CN.md",
         "configs/train_wan_1_3b.yaml",
         "configs/train_wan_14b.yaml",
-        "configs/train_wan_1_3b_7gpu.yaml",
-        "scripts/train_7gpu.sh",
         "scripts/train_8gpu.sh",
         "examples/vidprom_prompts_2000.txt",
         "examples/VIDPROM_DATASET.md",
@@ -20,7 +18,7 @@ def test_readme_referenced_local_files_exist():
         "docs/npu.md",
         "CONTRIBUTING.md",
         "LICENSE",
-        "assets/rmd_overview.png",
+        "assets/rmd_training_framework.png",
         "assets/wan_video_comparison.png",
     )
 

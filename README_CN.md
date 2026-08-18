@@ -11,7 +11,7 @@
 
 **Cross-Resolution Distribution Matching for Diffusion Distillation** 的官方实现。RMD 将预训练扩散模型蒸馏为少步生成器：前期在低分辨率下构建整体结构，后期切换到高分辨率细化纹理，从而降低视频生成开销。
 
-![RMD 方法概览](assets/rmd_overview.png)
+![RMD 训练框架](assets/rmd_training_framework.png)
 
 ## 主要特点
 
@@ -101,15 +101,6 @@ rmd-train \
   --pretrained_model_name_or_path /data/models/Wan2.1-T2V-1.3B-Diffusers \
   --data_path examples/vidprom_prompts_2000.txt \
   --output_dir /data/runs/rmd-1.3b
-```
-
-### 7 卡 FSDP 训练
-
-先修改 `configs/train_wan_1_3b_7gpu.yaml` 中的模型路径，再运行：
-
-```bash
-bash scripts/train_7gpu.sh configs/train_wan_1_3b_7gpu.yaml \
-  --output_dir /data/runs/rmd-1.3b-7gpu
 ```
 
 ### 8 卡 FSDP 训练

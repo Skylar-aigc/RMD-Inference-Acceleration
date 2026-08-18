@@ -46,20 +46,8 @@ bash scripts/train_8gpu.sh configs/train_wan_1_3b.yaml
 bash scripts/train_8gpu.sh configs/train_wan_14b.yaml
 ```
 
-### Wan2.1 1.3B on seven GPUs
-
-```bash
-bash scripts/train_7gpu.sh configs/train_wan_1_3b_7gpu.yaml \
-  --pretrained_model_name_or_path /data/models/Wan2.1-T2V-1.3B-Diffusers
-```
-
-This recipe uses global batch 28, eta 0, zero timestep offset,
-`split_timestep=false`, beta1 0, cosine restarts, and validation samples at
-step 1 and every checkpoint.
-
-It defaults to standard AdamW because bitsandbytes AdamW8bit does not guarantee
-FSDP optimizer compatibility. The 8-bit implementation remains opt-in for
-controlled experiments.
+The FSDP recipes default to standard AdamW. The 8-bit implementation remains
+opt-in for controlled experiments.
 
 The launcher starts eight Accelerate processes and uses FSDP `FULL_SHARD` for
 the Wan transformers. `train_batch_size` is a **per-GPU micro-batch**. Effective

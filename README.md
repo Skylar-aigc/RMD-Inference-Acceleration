@@ -11,7 +11,7 @@
 
 Official implementation of **Cross-Resolution Distribution Matching for Diffusion Distillation**. RMD distills a pretrained diffusion model into a few-step generator that builds global structure at low resolution and refines details at high resolution.
 
-![RMD overview](assets/rmd_overview.png)
+![RMD training framework](assets/rmd_training_framework.png)
 
 ## Highlights
 
@@ -101,15 +101,6 @@ rmd-train \
   --pretrained_model_name_or_path /data/models/Wan2.1-T2V-1.3B-Diffusers \
   --data_path examples/vidprom_prompts_2000.txt \
   --output_dir /data/runs/rmd-1.3b
-```
-
-### Seven GPUs with FSDP
-
-Update the model path in `configs/train_wan_1_3b_7gpu.yaml`, then run:
-
-```bash
-bash scripts/train_7gpu.sh configs/train_wan_1_3b_7gpu.yaml \
-  --output_dir /data/runs/rmd-1.3b-7gpu
 ```
 
 ### Eight GPUs with FSDP
