@@ -132,12 +132,13 @@ bash scripts/train_8gpu.sh configs/train_wan_14b.yaml \
 | `flow_shift_trans: 0` | 不切换分辨率。 |
 | `flow_shift_trans: 1` | 采样过程中从 480p 上采样到 720p。 |
 | `flow_shift_trans: 2` | 上采样，同时将 flow shift 从 3 切换为 5。 |
-| `eta` | 预测噪声混合系数；训练与推理应使用相同值。 |
+| `eta` | 预测噪声混合系数；推理时可以独立调整。 |
 | `checkpointing_steps` | 模型保存间隔；提供的配方默认为 50。 |
 
 ## 模型推理
 
-推理时应使用与训练一致的基础模型和采样参数：
+推理时应使用与训练一致的基础模型和分辨率调度；`eta` 可以独立调整，
+下面的示例使用 `0.9`：
 
 ```bash
 rmd-infer \
@@ -148,7 +149,7 @@ rmd-infer \
   --k_step 6 \
   --flow_shift_trans 1 \
   --low_rs_step 3 \
-  --eta 0.5 \
+  --eta 0.9 \
   --output_dir outputs/demo
 ```
 
@@ -159,7 +160,7 @@ rmd-infer \
   --model_dir /data/runs/rmd-1.3b/student_model-300 \
   --pretrained_model_name_or_path /data/models/Wan2.1-T2V-1.3B-Diffusers \
   --prompt_file examples/sample_prompts.txt \
-  --resolution 720 --k_step 6 --flow_shift_trans 1 --low_rs_step 3 --eta 0.5 \
+  --resolution 720 --k_step 6 --flow_shift_trans 1 --low_rs_step 3 --eta 0.9 \
   --output_dir outputs/batch
 ```
 
@@ -170,7 +171,7 @@ accelerate launch --num_processes 8 -m rmd.cli infer \
   --model_dir /data/runs/rmd-1.3b/student_model-300 \
   --pretrained_model_name_or_path /data/models/Wan2.1-T2V-1.3B-Diffusers \
   --prompt_file examples/sample_prompts.txt \
-  --resolution 720 --k_step 6 --flow_shift_trans 1 --low_rs_step 3 --eta 0.5 \
+  --resolution 720 --k_step 6 --flow_shift_trans 1 --low_rs_step 3 --eta 0.9 \
   --output_dir outputs/distributed
 ```
 
@@ -180,7 +181,7 @@ accelerate launch --num_processes 8 -m rmd.cli infer \
 rmd-demo \
   --model_dir /data/runs/rmd-1.3b/student_model-300 \
   --pretrained_model_name_or_path /data/models/Wan2.1-T2V-1.3B-Diffusers \
-  --resolution 720 --k_step 6 --flow_shift_trans 1 --low_rs_step 3 --eta 0.5
+  --resolution 720 --k_step 6 --flow_shift_trans 1 --low_rs_step 3 --eta 0.9
 ```
 
 ## VBench 评测
@@ -193,7 +194,7 @@ python benchmarks/vbench.py \
   --pretrained_model_name_or_path /data/models/Wan2.1-T2V-1.3B-Diffusers \
   --prompt_file /data/VBench/prompts.txt \
   --output_dir outputs/vbench \
-  --resolution 720 --k_step 6 --flow_shift_trans 1 --low_rs_step 3 --eta 0.5 \
+  --resolution 720 --k_step 6 --flow_shift_trans 1 --low_rs_step 3 --eta 0.9 \
   --iterations 5
 ```
 

@@ -31,7 +31,7 @@ rmd-infer \
 | `--k_step` | `6` | sampling steps |
 | `--flow_shift_trans` | `0` | 0 = single resolution, 1 = upsample, 2 = upsample + shift |
 | `--low_rs_step` | `0` | low-resolution steps (match training value) |
-| `--eta` | `0` | stochasticity; override to match the training recipe |
+| `--eta` | `0` | stochasticity; may be tuned independently from training |
 | `--seed` | `42` | reproducibility |
 | `--device` | `auto` | `cuda` / `npu` / `cpu` |
 
@@ -74,7 +74,7 @@ accelerate launch --num_processes 8 -m rmd.cli infer \
   --model_dir /path/to/student_ckpt \
   --pretrained_model_name_or_path /path/to/Wan-Diffusers \
   --prompt_file prompts.txt \
-  --eta 0.5 \
+  --eta 0.9 \
   --output_dir outputs/distributed-infer
 ```
 
