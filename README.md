@@ -132,12 +132,13 @@ When `validation_prompt_path` is set, ten samples are generated at step 1 and ev
 | `flow_shift_trans: 0` | No resolution transition. |
 | `flow_shift_trans: 1` | Upsample from 480p to 720p during sampling. |
 | `flow_shift_trans: 2` | Upsample and switch the flow shift from 3 to 5. |
-| `eta` | Predicted-noise mixing coefficient; use the same value for training and inference. |
+| `eta` | Predicted-noise mixing coefficient; it may be tuned independently for inference. |
 | `checkpointing_steps` | Checkpoint interval; defaults to 50 in the provided recipes. |
 
 ## Inference
 
-Use the same base model family and sampling settings as training:
+Use the same base model family and resolution schedule as training. Inference
+may use a different `eta`; the examples below use `0.9`:
 
 ```bash
 rmd-infer \
@@ -148,7 +149,7 @@ rmd-infer \
   --k_step 6 \
   --flow_shift_trans 1 \
   --low_rs_step 3 \
-  --eta 0.5 \
+  --eta 0.9 \
   --output_dir outputs/demo
 ```
 
@@ -159,7 +160,7 @@ rmd-infer \
   --model_dir /data/runs/rmd-1.3b/student_model-300 \
   --pretrained_model_name_or_path /data/models/Wan2.1-T2V-1.3B-Diffusers \
   --prompt_file examples/sample_prompts.txt \
-  --resolution 720 --k_step 6 --flow_shift_trans 1 --low_rs_step 3 --eta 0.5 \
+  --resolution 720 --k_step 6 --flow_shift_trans 1 --low_rs_step 3 --eta 0.9 \
   --output_dir outputs/batch
 ```
 
@@ -170,7 +171,7 @@ accelerate launch --num_processes 8 -m rmd.cli infer \
   --model_dir /data/runs/rmd-1.3b/student_model-300 \
   --pretrained_model_name_or_path /data/models/Wan2.1-T2V-1.3B-Diffusers \
   --prompt_file examples/sample_prompts.txt \
-  --resolution 720 --k_step 6 --flow_shift_trans 1 --low_rs_step 3 --eta 0.5 \
+  --resolution 720 --k_step 6 --flow_shift_trans 1 --low_rs_step 3 --eta 0.9 \
   --output_dir outputs/distributed
 ```
 
@@ -180,7 +181,7 @@ Launch the web demo with:
 rmd-demo \
   --model_dir /data/runs/rmd-1.3b/student_model-300 \
   --pretrained_model_name_or_path /data/models/Wan2.1-T2V-1.3B-Diffusers \
-  --resolution 720 --k_step 6 --flow_shift_trans 1 --low_rs_step 3 --eta 0.5
+  --resolution 720 --k_step 6 --flow_shift_trans 1 --low_rs_step 3 --eta 0.9
 ```
 
 ## Evaluation
@@ -193,7 +194,7 @@ python benchmarks/vbench.py \
   --pretrained_model_name_or_path /data/models/Wan2.1-T2V-1.3B-Diffusers \
   --prompt_file /data/VBench/prompts.txt \
   --output_dir outputs/vbench \
-  --resolution 720 --k_step 6 --flow_shift_trans 1 --low_rs_step 3 --eta 0.5 \
+  --resolution 720 --k_step 6 --flow_shift_trans 1 --low_rs_step 3 --eta 0.9 \
   --iterations 5
 ```
 
